@@ -1,62 +1,54 @@
 {%extends 'base.html'%}
 {%block body_block%}
+<h1>Welcome</h1>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        {%for m in messages%}
+        {{m}}
+        {%endfor%}
+        <form action="" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            {{form.as_p}}
+            <input type="submit" value="add">
+        </form>
+    </div>
+    <div class="col-4"></div>
+</div>
+<hr>
 <div class="row gx-4 gx-lg-5 justify-content-center">
+    {%for q in questions%}
     <div class="col-md-10 col-lg-8 col-xl-7">
         <!-- Post preview-->
         <div class="post-preview">
             <a href="post.html">
-                <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
-                <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
+                <h2 class="post-title">{{q.title}}</h2>
+                <h3 class="post-subtitle">{{q.description}}</h3>
             </a>
             <p class="post-meta">
-                Posted by
+                Posted by {{q.user}}
                 <a href="#!">Start Bootstrap</a>
-                on September 24, 2022
+                on {{q.created_date}}
             </p>
         </div>
-        <!-- Divider-->
-        <hr class="my-4" />
-        <!-- Post preview-->
-        <div class="post-preview">
-            <a href="post.html"><h2 class="post-title">I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.</h2></a>
-            <p class="post-meta">
-                Posted by
-                <a href="#!">Start Bootstrap</a>
-                on September 18, 2022
-            </p>
+        <div>
+            <form action="" method="post">
+                <input type="text">
+            </form>
+
         </div>
-        <!-- Divider-->
-        <hr class="my-4" />
-        <!-- Post preview-->
-        <div class="post-preview">
-            <a href="post.html">
-                <h2 class="post-title">Science has not yet mastered prophecy</h2>
-                <h3 class="post-subtitle">We predict too much for the next year and yet far too little for the next ten.</h3>
-            </a>
-            <p class="post-meta">
-                Posted by
-                <a href="#!">Start Bootstrap</a>
-                on August 24, 2022
-            </p>
+        <h5 class="post-title">Answers</h2>
+        {%for ans in q.question_answers%}
+        <div>
+            Answers={{ans}}
+            Posted by={{ans.user}}
+            Date={{ans.created_date}}
+            Likes={{ans.votecount}}
         </div>
+        {%endfor%}
         <!-- Divider-->
         <hr class="my-4" />
-        <!-- Post preview-->
-        <div class="post-preview">
-            <a href="post.html">
-                <h2 class="post-title">Failure is not an option</h2>
-                <h3 class="post-subtitle">Many say exploration is part of our destiny, but it’s actually our duty to future generations.</h3>
-            </a>
-            <p class="post-meta">
-                Posted by
-                <a href="#!">Start Bootstrap</a>
-                on July 8, 2022
-            </p>
-        </div>
-        <!-- Divider-->
-        <hr class="my-4" />
-        <!-- Pager-->
-        <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
     </div>
+    {%endfor%}
 </div>
 {%endblock%}
